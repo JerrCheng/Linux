@@ -1,5 +1,5 @@
-myproc:myproc.c
+exec:exec.c
 	gcc -o $@ $^
 .PHONY:clean
 clean:
-	rm -rf myproc
+	rm -f exec
