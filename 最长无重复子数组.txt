@@ -1,0 +1,31 @@
+
+class Solution {
+  public:
+step 1：构建一个哈希表，用于统计数组元素出现的次数。
+step 2：窗口左右界都从数组首部开始，每次窗口优先右移右界，并统计进入窗口的元素的出现频率。
+step 3：一旦右界元素出现频率大于1，就需要右移左界直到窗口内不再重复，将左边的元素移除窗口的时候同时需要将它在哈希表中的频率减1，保证哈希表中的频率都是窗口内的频率。
+step 4：每轮循环，维护窗口长度最大值。
+ /**
+     *
+     * @param arr int整型vector the array
+     * @return int整型
+     */
+    int maxLength(vector<int>& arr) {
+        //哈希表记录窗口内非重复的数字
+        unordered_map<int, int> mp;
+        int res = 0;
+        //设置窗口左右边界
+        for (int left = 0, right = 0; right < arr.size(); right++)
+         {
+            //窗口右移进入哈希表统计出现次数
+            mp[arr[right]]++;
+            //出现次数大于1，则窗口内有重复
+            while (mp[arr[right]] > 1)
+                //窗口左移，同时减去该数字的出现次数
+                mp[arr[left++]]--;
+            //维护子数组长度最大值
+            res = max(res, right - left + 1);
+        }
+        return res;
+    }
+};
